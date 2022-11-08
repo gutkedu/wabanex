@@ -1,8 +1,8 @@
 defmodule Wabanex.Imc do
-  def calculate(filename) do
+  def calculate(%{"filename" => filename}) do
     filename
     |> File.read()
-    |> handle_file
+    |> handle_file()
   end
 
   defp handle_file({:ok, content}) do
@@ -21,7 +21,7 @@ defmodule Wabanex.Imc do
 
   defp parse_line(line) do
     line
-    |> String.split(',')
+    |> String.split(",")
     |> List.update_at(1, &String.to_float/1)
     |> List.update_at(2, &String.to_float/1)
     |> calculate_imc()
